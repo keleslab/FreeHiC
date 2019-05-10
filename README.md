@@ -1,6 +1,6 @@
-# FreeHi-C: high fidelity Hi-C data simulation, benchmarking and augmentation
+# FreeHi-C: high fidelity Hi-C data simulation for benchmarking and data augmentation
 
-Ye Zheng and Sündüz Keleş. FreeHi-C: high fidelity Hi-C data simulation, benchmarking and augmentation. BioRxiv 2019.
+Ye Zheng and Sündüz Keleş. FreeHi-C: high fidelity Hi-C data simulation for benchmarking and data augmentation. BioRxiv 2019.
 
 The pipeline is developed in Keles Research Group in University of Wisconsin - Madison and please contact Ye Zheng (yezheng@stat.wisc.edu) or open an issue in the github repository for any question and suggestion. 
 
@@ -16,7 +16,7 @@ FreeHi-C is short for **Fr**agment  interactions **e**mpirical **e**stimation fo
 
     git clone https://github.com/yezhengSTAT/FreeHiC
 
-The default setting of this FreeHi-C pipeline is a demo run utilizing a real but small Hi-C data: [Plasmodium falciparum genome Trophozoites stage](https://noble.gs.washington.edu/proj/plasmo3d). The raw input data will be downloaded automatically. In preparation for such run, you will need to install
+FreeHi-C installation is finished once you successsfully git clone the repository. The default setting of this FreeHi-C pipeline is a demo run utilizing a real but small Hi-C data: [Plasmodium falciparum genome Trophozoites stage](https://noble.gs.washington.edu/proj/plasmo3d). The raw input data will be downloaded automatically. In preparation for such run, you will need to install
 -   BWA: [BWA installation](http://bio-bwa.sourceforge.net/)  (>=0.5.9)
 -   samtools: [samtools installation](http://samtools.sourceforge.net/) (>=1.3)
 -   bedtools: [bedtools installation](https://bedtools.readthedocs.io/en/stable/content/installation.html) (>=2.27.0)
@@ -93,3 +93,6 @@ Under summary directory:
 -   summary
     -   nameOfSimu_FreeHiC.summary (raw data processing and simulation related number summary)
     -   nameOfSimu_FreeHiC.summary.[alignedN/allMatch/baseQS/chimericN/deletion/insertion/mismatch/revStrandN] (raw input sequencing data parameter training results)
+    
+Run time:
+- The whole procedure, including raw data processing, simulation and post-processing, should be expected to finish within 4 hours running the demo data using a single-core on a normal computer or server.
