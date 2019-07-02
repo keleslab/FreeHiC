@@ -93,6 +93,10 @@ Under summary directory:
 -   summary
     -   nameOfSimu_FreeHiC.summary (raw data processing and simulation related number summary)
     -   nameOfSimu_FreeHiC.summary.[alignedN/allMatch/baseQS/chimericN/deletion/insertion/mismatch/revStrandN] (raw input sequencing data parameter training results)
-    
+
+Under the directory of input parameter file:
+- FreeHiC_parameters (This is your input parameter file)
+- FreeHiC_parameters.log (This file saves the screen output of FreeHiC process. You can seed the output to the screen or anywhere else if you comment/delete/change the last part of the script ">$paraFile.log" in ```run_FreeHiC.sh```)
+
 Run time:
 - The whole procedure, including raw data processing, simulation and post-processing, should be expected to finish within 4 hours running the demo data using a single-core on a normal computer or server.

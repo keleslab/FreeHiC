@@ -89,12 +89,12 @@ if [[ "$train" -eq "1" ]]; then
     ## 2. Read-ends Pairing
     echo "I. Training: 2 - Joining read-ends!"
     ## if -t 1, training of mismatch, gap and base quality are also implemented
-    /p/keles/yezheng/volumeA/Softwares/python3/bin/python3 $projDir/scripts/joinEnds.py -r1 ${outDir}/rawDataTraining/s1_alignment/${name}_1.sam -r2 ${outDir}/rawDataTraining/s1_alignment/${name}_2.sam -o ${outDir}/rawDataTraining/s1_alignment/${name}.sam -t 1 -sf $summaryFile
+    python3 $projDir/scripts/joinEnds.py -r1 ${outDir}/rawDataTraining/s1_alignment/${name}_1.sam -r2 ${outDir}/rawDataTraining/s1_alignment/${name}_2.sam -o ${outDir}/rawDataTraining/s1_alignment/${name}.sam -t 1 -sf $summaryFile
 
 
     ## 3. Validation
     echo "I. Training: 3 - Categorize read-pairs!"
-    /p/keles/yezheng/volumeA/Softwares/python3/bin/python3 $projDir/scripts/categorizePairs.py -f ${refrag} -r ${outDir}/rawDataTraining/s1_alignment/${name}.sam -o ${outDir}/rawDataTraining/s2_validPairs -l $refragL -u $refragU -d $lowerBound -m "window" -b $resolution -sf $summaryFile
+    python3 $projDir/scripts/categorizePairs.py -f ${refrag} -r ${outDir}/rawDataTraining/s1_alignment/${name}.sam -o ${outDir}/rawDataTraining/s2_validPairs -l $refragL -u $refragU -d $lowerBound -m "window" -b $resolution -sf $summaryFile
 
     ## 4. Remove duplicates
     echo "I. Training: 4 - Remove duplicates!"
@@ -115,7 +115,7 @@ echo "## *****************************************"
 
 echo "II. Simulating!"
 mkdir -p ${outDir}/${simuName}
-/p/keles/yezheng/volumeA/Softwares/python3/bin/python3 $projDir/scripts/freeHiC_main.py -f ${refrag} -i "${outDir}/rawDataTraining/s2_validPairs/${name}.validPairs.fragFreq" -o "${outDir}/${simuName}/simuSequence" -fn "${name}" -n "${simuN}" -m "${mismatchP}" -idl "${gapP}" -c "${chimericP}" -r "$readLen" -d "$refragU" -s "${bedtoolsDir}" -g "${ref%%.gz}" -sf "$summaryFile"
+python3 $projDir/scripts/freeHiC_main.py -f ${refrag} -i "${outDir}/rawDataTraining/s2_validPairs/${name}.validPairs.fragFreq" -o "${outDir}/${simuName}/simuSequence" -fn "${name}" -n "${simuN}" -m "${mismatchP}" -idl "${gapP}" -c "${chimericP}" -r "$readLen" -d "$refragU" -s "${bedtoolsDir}" -g "${ref%%.gz}" -sf "$summaryFile"
 
 rm -rf ${outDir}/${simuName}/simuSequence/${name}.readPos*
 rm -rf ${outDir}/${simuName}/simuSequence/${name}.readqsOri*
@@ -142,12 +142,12 @@ if [[ "$postProcess" -eq "1" ]]; then
     ## 2. Read-ends Pairing
     echo "II. Simulation Post-processing: 2 - Joining read-ends!"
     ## if -t 1, training of mismatch, gap and base quality are also implemented
-    /p/keles/yezheng/volumeA/Softwares/python3/bin/python3 $projDir/scripts/joinEnds.py -r1 ${outDir}/${simuName}/simuProcess/s1_alignment/${name}_1.sam -r2 ${outDir}/${simuName}/simuProcess/s1_alignment/${name}_2.sam -o ${outDir}/${simuName}/simuProcess/s1_alignment/${name}.sam -t 0 -sf $summaryFile
+    python3 $projDir/scripts/joinEnds.py -r1 ${outDir}/${simuName}/simuProcess/s1_alignment/${name}_1.sam -r2 ${outDir}/${simuName}/simuProcess/s1_alignment/${name}_2.sam -o ${outDir}/${simuName}/simuProcess/s1_alignment/${name}.sam -t 0 -sf $summaryFile
 
 
     ## 3. Validation
     echo "II. Simulation Post-processing: 3 - Categorize read-pairs!"
-    /p/keles/yezheng/volumeA/Softwares/python3/bin/python3 $projDir/scripts/categorizePairs.py -f ${refrag} -r ${outDir}/${simuName}/simuProcess/s1_alignment/${name}.sam -o ${outDir}/${simuName}/simuProcess/s2_validPairs -l $refragL -u $refragU -d $lowerBound -m "window" -b $resolution -sf $summaryFile
+    python3 $projDir/scripts/categorizePairs.py -f ${refrag} -r ${outDir}/${simuName}/simuProcess/s1_alignment/${name}.sam -o ${outDir}/${simuName}/simuProcess/s2_validPairs -l $refragL -u $refragU -d $lowerBound -m "window" -b $resolution -sf $summaryFile
 
     ## 4. Binning
     echo "II. Simulation Post-processing: 4 - Binning!"
