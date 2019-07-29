@@ -1,0 +1,35 @@
+## user defined input data file name
+fastqFileName="GSM1215593_trimmedAndFiltered-TROPHOZOITES-XL-AGGG-L2"
+refName="PlasmoDB-9.0_Pfalciparum3D7_Genome.fasta"
+refragName="MboI_resfrag_plasmodium.bed"
+
+## user defined simulation setting
+simuName="demoSimulation"
+train=0
+simulate=1
+postProcess=1
+coreN=1
+mismatchN=3
+gapN=1
+mismatchP=""
+gapP=""
+chimericP=""
+simuN=2400
+readLen=40
+resolution=10000
+lowerBound=$((resolution*2))
+refragU=500
+ligateSite="GATCGATC"
+
+## user do not change! (Except for fastqFile variable if it is for the demo runs.)
+projDir="/FreeHiC/"
+outDir="/FreeHiC/results"
+summaryFile="/FreeHiC/results/summary/${simuName}_FreeHiC.summary"
+
+fastqFile="/FreeHiC/data/${fastqFileName}" ##For demo runs please use "ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM1215nnn/GSM1215593/suppl/GSM1215593_trimmedAndFiltered-TROPHOZOITES-XL-AGGG-L2"
+ref="/FreeHiC/data/${refName}"
+refrag="/FreeHiC/data/${refragName}"
+
+bwa="bwa"
+samtools="samtools"
+bedtools="bedtools"

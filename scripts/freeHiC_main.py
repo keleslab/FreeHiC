@@ -20,7 +20,7 @@ def get_args():
     parser.add_argument('-c', '--chimeric', help = 'Percentage of chimeric reads (0~100). Default value will be the percentage of chimeric in the provided sample data', default = 404)
     parser.add_argument('-r', '--readLen', help = 'The length of reads to be simulated.', default = None)
     parser.add_argument('-d', '--distance', help = 'Maximum distance allowed to simulate interaction coordinate away from the cloest restriction enzyme cutting site. Default is 500', default = 500)
-    parser.add_argument('-s', '--bedtools', help = 'Path to bedtools.', default = None)
+    parser.add_argument('-s', '--bedtools', help = 'Path to bedtools executable file.', default = None)
     parser.add_argument('-g', '--genome', help = 'Path to reference genome fasta file.', default = None)
     parser.add_argument('-sf', '--summaryFile', help = '(Optional) Summary file path . Default is infileName.alignSummary.', default = None)
     parser.add_argument('-v', '--verbose', help = '(Optional) Verbose. Default is true.', default = True)
@@ -85,6 +85,3 @@ if __name__ == "__main__":
     summaryFile = args.summaryFile
     verbose = args.verbose
     main(fragment, interaction, outdir, fileName, number, mutationP, indelP, chimericP, readLen, distance, bedtools, genome, summaryFile, verbose)
-#    cProfile.runctx("main(fragment, interaction, outdir, fileName, number, readLen, distance, bedtools, genome, summaryFile, verbose)", globals(), locals(), "Profile.prof")
-#    s = pstats.Stats("Profile.prof")
-#    s.strip_dirs().sort_stats("time").print_stats()

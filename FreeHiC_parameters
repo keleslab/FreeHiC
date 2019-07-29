@@ -6,11 +6,12 @@ simuName="demoSimulation"
 outDir="${projDir}/results"
 summaryFile="${projDir}/summary/${simuName}_FreeHiC.summary"
 
-bwaDir="/path/to/bwa"
-samtoolsDir="/path/to/samtools"
-bedtoolsDir="/path/to/bedtools/bin"
+bwa="/path/to/bwa"
+samtools="/path/to/samtools"
+bedtools="/path/to/bedtools"
 
 train=1
+simulate=1
 postProcess=1
 coreN=4
 mismatchN=3
@@ -23,4 +24,4 @@ readLen=40
 resolution=10000
 lowerBound=$((resolution*2))
 refragU=500
-cutsite="GATCGATC"
+ligateSite="GATCGATC"

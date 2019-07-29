@@ -8,15 +8,15 @@
 projDir=$1
 fastqFile=$2
 outDir=$3
-bwaDir=$4
-samtoolsDir=$5
+bwa=$4
+samtools=$5
 ref=$6
 coreN=$7
 mismatchN=${8:-3}
 gapN=${9:-1}
 summaryFile=${10:-"${outDir}/freeHiC.summary"}
 shift 10
-cutsite=("$@")
+ligateSite=("$@")
 
 name=${fastqFile##*/}
 bin=${projDir}/bin
@@ -40,8 +40,8 @@ fi
 #     seqLength=25
 # fi
 
-## compile cutsite to trim chimeric reads
-g++ -std=c++0x -o $bin/cutsite_trimming_freeHiC $bin/cutsite_trimming_freeHiC.cpp
+## compile ligateSite to trim chimeric reads
+g++ -std=c++11 -o $bin/ligateSite_trimming_freeHiC $bin/ligateSite_trimming_freeHiC.cpp
 
 
 echo "(We assume the reads length are the same within the same fastq file.)...... "
@@ -55,31 +55,31 @@ do
     ## if bwa index not exist
     if [ ! -e $ref.bwt ] || [ ! -e $ref.sa ] || [ ! -e $ref.pac ]; then
     	echo "Step 1.0 Building BWA index"
-    	$bwaDir/bwa index $ref
+    	$bwa index $ref
     fi
     
     echo "Step1.1 - BWA alignment"
-    $bwaDir/bwa aln -n $mismatchN -o $gapN -t $coreN $ref ${fastqFile}_$i.fastq >$outDir/${name}_$i.sai
-    $bwaDir/bwa samse $ref $outDir/${name}_$i.sai ${fastqFile}_$i.fastq >$outDir/${name}_$i.sam
+    $bwa aln -n $mismatchN -o $gapN -t $coreN $ref ${fastqFile}_$i.fastq >$outDir/${name}_$i.sai
+    $bwa samse $ref $outDir/${name}_$i.sai ${fastqFile}_$i.fastq >$outDir/${name}_$i.sam
     
-    if [[ "$cutsite" =~ $number ]] && [[ "$cutsite" -eq "0" ]]; then
+    if [[ "$ligateSite" =~ $number ]] && [[ "$ligateSite" -eq "0" ]]; then
 	
     	echo "Choose not to rescue chimeric reads or the chimeric reads have been trimmed before alignment!"
     else
     	# step1.2 - filter get aligned sam & unmapped sam
     	echo "Step1.2 - Filter and get unmapped alignment sam file."
     	## Filter out the unmapped for future chimeric reads rescuing.
-    	$samtoolsDir/samtools view -h -f 4  $outDir/${name}_$i.sam >$outDir/${name}_unmapped_$i.sam
+    	$samtools view -h -f 4  $outDir/${name}_$i.sam >$outDir/${name}_unmapped_$i.sam
     	mv $outDir/${name}_$i.sam $outDir/${name}_${i}_raw.sam
     
     	# step1.3 - trim and filter unmapped
     	echo "Step1.3 - Trim unmapped reads until the restriction enzyme cutting site."
-    	$samtoolsDir/samtools fastq $outDir/${name}_unmapped_$i.sam >$outDir/${name}_unmapped_$i.fastq
+    	$samtools fastq $outDir/${name}_unmapped_$i.sam >$outDir/${name}_unmapped_$i.fastq
 
-    	for cut in ${cutsite[@]}
+    	for cut in ${ligateSite[@]}
     	do
 	    
-    	    $bin/cutsite_trimming_freeHiC --fastq $outDir/${name}_unmapped_$i.fastq --cutsite $cut --out $outDir/${name}_unmapped_trim_$i.fastq
+    	    $bin/ligateSite_trimming_freeHiC --fastq $outDir/${name}_unmapped_$i.fastq --cutsite $cut --out $outDir/${name}_unmapped_trim_$i.fastq
     	    rm $outDir/${name}_unmapped_$i.fastq
     	    mv $outDir/${name}_unmapped_trim_$i.fastq $outDir/$name\_unmapped_$i.fastq
     	done
@@ -87,9 +87,9 @@ do
 
     	# step4 - align trimed read
     	echo "Step1.4 - Rescue chimeric reads by re-aligning trimmed unmapped reads."
-    	$bwaDir/bwa aln -n $mismatchN -o $gapN -t $coreN $ref $outDir/${name}_unmapped_trim_filter_$i.fastq >$outDir/${name}_unmapped_trim_filter_$i.sai
-    	$bwaDir/bwa samse $ref  $outDir/${name}_unmapped_trim_filter_$i.sai $outDir/${name}_unmapped_trim_filter_$i.fastq >$outDir/${name}_unmapped_trim_filter_$i.sam
-    	$samtoolsDir/samtools view $outDir/${name}_unmapped_trim_filter_$i.sam >$outDir/${name}_unmapped_trim_filter_noheader_$i.sam
+    	$bwa aln -n $mismatchN -o $gapN -t $coreN $ref $outDir/${name}_unmapped_trim_filter_$i.fastq >$outDir/${name}_unmapped_trim_filter_$i.sai
+    	$bwa samse $ref  $outDir/${name}_unmapped_trim_filter_$i.sai $outDir/${name}_unmapped_trim_filter_$i.fastq >$outDir/${name}_unmapped_trim_filter_$i.sam
+    	$samtools view $outDir/${name}_unmapped_trim_filter_$i.sam >$outDir/${name}_unmapped_trim_filter_noheader_$i.sam
 
 	# step5 - merge two step alignment
 	echo "step1.5 - Merge chimeric reads with mapped full-length reads."	
@@ -97,7 +97,7 @@ do
     fi
 done
 
-if [[ "$cutsite" =~ $number ]] && [[ "$cutsite" -eq "0" ]]; then 
+if [[ "$ligateSite" =~ $number ]] && [[ "$ligateSite" -eq "0" ]]; then 
     rawAlign1=$(awk '$6 !="*" && $1!="@SQ" && $1!="@PG" {print $1}' $outDir/${name}_1.sam | wc -l)
     rawAlign2=$(awk '$6 !="*" && $1!="@SQ" && $1!="@PG" {print $1}' $outDir/${name}_2.sam | wc -l)
     

@@ -430,10 +430,10 @@ cdef void simulation(str fragment, str interaction, int number, str summaryFile,
     # readqsMut1.close()
 
     print("Get fasta from the reference genome!")
-    call(bedtools + '/bedtools getfasta -fi ' + genome + ' -bed ' + outdir + '/' + fileName + '.readPosOri1 -name -s -fo ' + outdir + "/" + fileName + '.readSeqOri1', shell = True)
-    call(bedtools + '/bedtools getfasta -fi ' + genome + ' -bed ' + outdir + '/' + fileName + '.readPosMut1 -name -s -tab -fo ' + outdir + "/" + fileName + '.readSeqMut1', shell = True)
-    call(bedtools + '/bedtools getfasta -fi ' + genome + ' -bed ' + outdir + '/' + fileName + '.readPosIns1 -s -name -tab -fo ' + outdir + "/" + fileName + '.readSeqIns1', shell = True)
-    call(bedtools + '/bedtools getfasta -fi ' + genome + ' -bed ' + outdir + '/' + fileName + '.readPosDel1 -s -name -tab -fo ' + outdir + "/" + fileName + '.readSeqDel1', shell = True)
+    call(bedtools + ' getfasta -fi ' + genome + ' -bed ' + outdir + '/' + fileName + '.readPosOri1 -name -s -fo ' + outdir + "/" + fileName + '.readSeqOri1', shell = True)
+    call(bedtools + ' getfasta -fi ' + genome + ' -bed ' + outdir + '/' + fileName + '.readPosMut1 -name -s -tab -fo ' + outdir + "/" + fileName + '.readSeqMut1', shell = True)
+    call(bedtools + ' getfasta -fi ' + genome + ' -bed ' + outdir + '/' + fileName + '.readPosIns1 -s -name -tab -fo ' + outdir + "/" + fileName + '.readSeqIns1', shell = True)
+    call(bedtools + ' getfasta -fi ' + genome + ' -bed ' + outdir + '/' + fileName + '.readPosDel1 -s -name -tab -fo ' + outdir + "/" + fileName + '.readSeqDel1', shell = True)
     
     call(r"""awk '{{ split($0, id, "("); name = id[1]; getline; getline x<"{0}/{1}.readqsOri1"; getline y<"{0}/{1}.readqsOri1"; print name "\n" $0 "\n" x "\n" y;}}' {0}/{1}.readSeqOri1 > {0}/{1}_1.fastq""".format(outdir, fileName), shell = True)
     endFile1 = open(outdir + "/" + fileName + "_1.fastq", "a+")
@@ -472,7 +472,7 @@ cdef void simulation(str fragment, str interaction, int number, str summaryFile,
             else:
                 baseQualSeqStr = baseQualSeq1[rid][:readLenList[rid]].decode('ascii')
 
-            endFile1.write(">" + str(rid) + "\n" + seq + "\n+\n" + baseQualSeqStr + "\n")
+            endFile1.write("@" + str(rid) + "\n" + seq + "\n+\n" + baseQualSeqStr + "\n")
 
     print("Add insertion!")
     ## add insertion
@@ -488,7 +488,7 @@ cdef void simulation(str fragment, str interaction, int number, str summaryFile,
             seq = add_insert(seq, gapLen)
             baseQualSeqStr = baseQualSeq1[rid][:readLenList[rid]].decode('ascii') + baseQualSeq1[rid][(readLenList[rid]-2):(readLenList[rid] - 1)].decode('ascii') * gapLen
 
-            endFile1.write(">" + str(rid) + "\n" + seq + "\n+\n" + baseQualSeqStr + "\n")
+            endFile1.write("@" + str(rid) + "\n" + seq + "\n+\n" + baseQualSeqStr + "\n")
 
     print("Add deletion")
     ## add deletion
@@ -504,7 +504,7 @@ cdef void simulation(str fragment, str interaction, int number, str summaryFile,
             seq = add_delete(seq, gapLen)
             baseQualSeqStr = baseQualSeq1[rid][:(readLenList[rid] - gapLen)].decode('ascii')
 
-            endFile1.write(">" + str(rid) + "\n" + seq + "\n+\n" + baseQualSeqStr + "\n")
+            endFile1.write("@" + str(rid) + "\n" + seq + "\n+\n" + baseQualSeqStr + "\n")
     endFile1.close()
 
     ## for end 2
@@ -552,10 +552,10 @@ cdef void simulation(str fragment, str interaction, int number, str summaryFile,
     # readqsMut2.close()
 
     print("Get fasta from reference genome!")
-    call(bedtools + '/bedtools getfasta -fi ' + genome + ' -bed ' + outdir + '/' + fileName + '.readPosOri2 -name -s -fo ' + outdir + "/" + fileName + '.readSeqOri2', shell = True)
-    call(bedtools + '/bedtools getfasta -fi ' + genome + ' -bed ' + outdir + '/' + fileName + '.readPosMut2 -name -s -tab -fo ' + outdir + "/" + fileName + '.readSeqMut2', shell = True)
-    call(bedtools + '/bedtools getfasta -fi ' + genome + ' -bed ' + outdir + '/' + fileName + '.readPosIns2 -s -name -tab -fo ' + outdir + "/" + fileName + '.readSeqIns2', shell = True)
-    call(bedtools + '/bedtools getfasta -fi ' + genome + ' -bed ' + outdir + '/' + fileName + '.readPosDel2 -s -name -tab -fo ' + outdir + "/" + fileName + '.readSeqDel2', shell = True)
+    call(bedtools + ' getfasta -fi ' + genome + ' -bed ' + outdir + '/' + fileName + '.readPosOri2 -name -s -fo ' + outdir + "/" + fileName + '.readSeqOri2', shell = True)
+    call(bedtools + ' getfasta -fi ' + genome + ' -bed ' + outdir + '/' + fileName + '.readPosMut2 -name -s -tab -fo ' + outdir + "/" + fileName + '.readSeqMut2', shell = True)
+    call(bedtools + ' getfasta -fi ' + genome + ' -bed ' + outdir + '/' + fileName + '.readPosIns2 -s -name -tab -fo ' + outdir + "/" + fileName + '.readSeqIns2', shell = True)
+    call(bedtools + ' getfasta -fi ' + genome + ' -bed ' + outdir + '/' + fileName + '.readPosDel2 -s -name -tab -fo ' + outdir + "/" + fileName + '.readSeqDel2', shell = True)
     #call(r"""awk '{{ if(substr($0, length($0)-2, length($0)) == ")") {{ name = substr($0, 2, length($0)-3)}} else {{name = $0}}; getline; getline x<"{0}/{2}.readqsOri2"; getline y<"{0}/{2}.readqsOri2"; print name "\n" $0 "\n" x "\n" y;}}' {0}/{2}.readSeqOri2 > {0}/{2}_2.fastq""".format(outdir, fileName), shell = True)
     call(r"""awk '{{ split($0, id, "("); name = id[1]; getline; getline x<"{0}/{1}.readqsOri2"; getline y<"{0}/{1}.readqsOri2"; print name "\n" $0 "\n" x "\n" y;}}' {0}/{1}.readSeqOri2 > {0}/{1}_2.fastq""".format(outdir, fileName), shell = True)
     endFile2 = open(outdir + "/" + fileName + "_2.fastq", "a+")
@@ -593,7 +593,7 @@ cdef void simulation(str fragment, str interaction, int number, str summaryFile,
             else:
                 baseQualSeqStr = baseQualSeq2[rid][:readLenList[rid]].decode('ascii')
             ## baseQualSeqStr = baseQualSeq2[rid][:readLenList[rid]].decode('ascii')
-            endFile2.write(">" + str(rid) + "\n" + seq + "\n+\n" + baseQualSeqStr + "\n")
+            endFile2.write("@" + str(rid) + "\n" + seq + "\n+\n" + baseQualSeqStr + "\n")
 
     print("Add insertion!")
     ## add insertion
@@ -609,7 +609,7 @@ cdef void simulation(str fragment, str interaction, int number, str summaryFile,
             seq = add_insert(seq, gapLen)
             baseQualSeqStr = baseQualSeq2[rid][:readLenList[rid]].decode('ascii') + baseQualSeq2[rid][(readLenList[rid]-2):(readLenList[rid] - 1)].decode('ascii') * gapLen
 
-            endFile2.write(">" + str(rid) + "\n" + seq + "\n+\n" + baseQualSeqStr + "\n")
+            endFile2.write("@" + str(rid) + "\n" + seq + "\n+\n" + baseQualSeqStr + "\n")
 
     print("Add deletion!")
     ## add deletion
@@ -625,7 +625,7 @@ cdef void simulation(str fragment, str interaction, int number, str summaryFile,
             seq = add_delete(seq, gapLen)
             baseQualSeqStr = baseQualSeq2[rid][:(readLenList[rid] - gapLen)].decode('ascii')
 
-            endFile2.write(">" + str(rid) + "\n" + seq + "\n+\n" + baseQualSeqStr + "\n")
+            endFile2.write("@" + str(rid) + "\n" + seq + "\n+\n" + baseQualSeqStr + "\n")
     endFile2.close()
 
     
