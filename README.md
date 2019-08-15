@@ -29,6 +29,45 @@ FreeHi-C installation is finished once you successsfully git clone the repositor
 
 Subsequently, set the paths to the software executable file in the parameter file (FreeHiC_parameters) accordingly. Other parameters have been set for the demo data run but they can always be customized for you own usage.
 
+#### 1.1 [Alternative] Creating environment using conda.
+
+1. Install [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
+
+2. Build conda environment:
+
+```
+conda env create -f FreeHiC_conda_environment.yml
+```
+
+3. Active conda environment for FreeHi-C:
+
+```
+conda activate FreeHiC
+```
+
+4. Test the FreeHi-C enviroment:
+
+```
+bwa
+bedtools
+```
+
+5. For linux, if you get the following error messages:
+
+```
+>bedtools                                                                                                                                                          (FreeHiC) 
+bedtools: */envs/FreeHiC/bin/../lib/libstdc++.so.6: version `GLIBCXX_3.4.20' not found (required by bedtools)
+bedtools: */envs/FreeHiC/bin/../lib/libstdc++.so.6: version `CXXABI_1.3.8' not found (required by bedtools)
+bedtools: */envs/FreeHiC/bin/../lib/libstdc++.so.6: version `GLIBCXX_3.4.21' not found (required by bedtools)
+```
+
+Try the following to update libgcc:
+```
+conda install -c anaconda libgcc=5.2.0
+```
+
+6. Run FreeHi-C following the next steps.
+
 ### 2. Setting the parameters in the "FreeHiC_parameters'' file
 
     Path to general folders and necessary genomic files.
