@@ -117,6 +117,10 @@ if [[ -z "$bwa" ]]; then
 else
     echo "  8. Path to BWA executable file is provided. Checking bwa help manual......"
     $bwa
+    # if [[ $? = "1" ]]; then
+    # 	echo "BWA test run failed! Please check the path to BWA executable file."
+    # 	exit 1
+    # fi
 fi
 
 
@@ -125,7 +129,11 @@ if [[ -z "$samtools" ]]; then
     exit 1
 else
     echo "  9. Path to samtools executable file is provided. Checking samtools help manual......"
-    $samtools
+    $samtools --help
+    if [[ $? -ne 0 ]]; then
+	echo "Samtools test run failed! Please check the path to Samtools executable file."
+	exit 1
+    fi
 fi
 
 if [[ -z "$bedtools" ]]; then
@@ -133,7 +141,12 @@ if [[ -z "$bedtools" ]]; then
     exit 1
 else
     echo "  10. Path to bedtools executable file is provided. Checking bedtools manual......"
-    $bedtools
+    $bedtools --help
+    if [[ $? -ne 0 ]]; then
+	echo "Bedtools test run failed! Please check the path to Bedtools executable file."
+	exit 1
+    fi
+
 fi
 
 if [[ -z "$train" ]]; then
