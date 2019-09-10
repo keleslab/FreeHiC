@@ -6,9 +6,11 @@ The pipeline is developed in Keles Research Group in University of Wisconsin - M
 
 ## What is FreeHi-C?
 
-FreeHi-C is short for **Fr**agment  interactions **e**mpirical **e**stimation for fast simulation of **Hi-C** data. It is a data-driven Hi-C data simulator for simulating and augmenting Hi-C datasets.  FreeHi-C employs a non-parametric strategy for estimating an interaction distribution of genome fragments and simulates Hi-C reads from interacting fragments. Data from FreeHi-C exhibit higher fidelity to the biological Hi-C data. FreeHi-C not only can be used to study and benchmark a wide range of Hi-C analysis methods but also boosts power and enables false discovery rate control for differential interaction detection algorithms through data augmentation.
+FreeHi-C (v1.0) is short for **Fr**agment  interactions **e**mpirical **e**stimation for fast simulation of **Hi-C** data. It is a data-driven Hi-C data simulator for simulating and augmenting Hi-C datasets.  FreeHi-C employs a non-parametric strategy for estimating an interaction distribution of genome fragments and simulates Hi-C reads from interacting fragments. Data from FreeHi-C exhibit higher fidelity to the biological Hi-C data. FreeHi-C not only can be used to study and benchmark a wide range of Hi-C analysis methods but also boosts power and enables false discovery rate control for differential interaction detection algorithms through data augmentation.
 
 FreeHi-C is designed for studies that are prone to simulate Hi-C interactions from the real data and add deviations from the true ones. Therefore, FreeHi-C requires real Hi-C sequencing data (FASTQ format) as input along with user-defined simulation parameters. FreeHi-C will eventually provide the simulated genomics contact counts in a sparse matrix format (BED format) which is compatible with the standard input of downstream Hi-C analysis.
+
+Current version: 1.0.
 
 ![FreeHi-C pipeline diagram](/figures/FreeHiC_pipeline.png)
 
