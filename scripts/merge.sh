@@ -5,7 +5,7 @@ outPath=$2
 ## ==============================================================
 ## 1. Merge the restriction fragment interaciton frequency files
 ## ==============================================================
-cat $outPath/rawDataTraining/s2_validPairs/${repName}*fragFreq | sort -k2 -k3 | awk '{print $2, $3, $1}' | awk '{a[$1" "$2]+=$3}END{for (i in a) print i,a[i]}' | sort -k1 -k2 | awk '{print $3, $1, $2}' >$repName.validPairs.fragFreq
+cat $outPath/rawDataTraining/s2_validPairs/${repName}*fragFreq | sort -k2 -k3 | awk '{print $2, $3, $1}' | awk '{a[$1" "$2]+=$3}END{for (i in a) print i,a[i]}' | sort -k1 -k2 | awk '{print $3"\t"$1"\t"$2}' >$repName.validPairs.fragFreq
 
 
 ## =====================================

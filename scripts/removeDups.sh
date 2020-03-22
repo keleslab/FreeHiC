@@ -42,7 +42,7 @@ else
 fi
 
 if [ "$fragFreq" -eq "1" ]; then
-    awk '{print $5, $10}' $validP.nodup | sort -T $outDir/sorttmp | uniq -c >$validP.fragFreq
+    awk '{print $5, $10}' $validP.nodup | sort -T $outDir/sorttmp | uniq -c | awk '{print $1"\t"$2"\t"$3}' >$validP.fragFreq
 fi
 rm -rf $outDir/sorttmp
 
