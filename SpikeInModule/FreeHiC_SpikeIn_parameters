@@ -1,0 +1,8 @@
+projDir="/path/to/FreeHiC/repository"
+spikeInType="data"
+dataPath="${projDir}/SpikeInModule/data"
+resolution=40000
+thres=3
+perc=10 ## Try small number such as 0.1 for quick run
+nei=2
+outPath="${projDir}/SpikeInModule/results"

@@ -2,17 +2,23 @@
 
 Ye Zheng and Sündüz Keleş. [FreeHi-C simulates high-fidelity Hi-C data for benchmarking and data augmentation](https://www.nature.com/articles/s41592-019-0624-3). Nature Methods (2019).
 
-The pipeline is developed in Keles Research Group in University of Wisconsin - Madison and please contact Ye Zheng (yezheng@stat.wisc.edu) or open an issue in the github repository for any question and suggestion. 
+The pipeline is developed in Keles Research Group at University of Wisconsin - Madison and please contact Ye Zheng (yezheng@stat.wisc.edu) or open an issue in the github repository for any question and suggestion. 
 
 ## What is FreeHi-C?
 
-FreeHi-C (v1.0) is short for **Fr**agment  interactions **e**mpirical **e**stimation for fast simulation of **Hi-C** data. It is a data-driven Hi-C data simulator for simulating and augmenting Hi-C datasets.  FreeHi-C employs a non-parametric strategy for estimating an interaction distribution of genome fragments and simulates Hi-C reads from interacting fragments. Data from FreeHi-C exhibit higher fidelity to the biological Hi-C data. FreeHi-C not only can be used to study and benchmark a wide range of Hi-C analysis methods but also boosts power and enables false discovery rate control for differential interaction detection algorithms through data augmentation.
+FreeHi-C (v2.0) is short for **Fr**agment  interactions **e**mpirical **e**stimation for fast simulation of **Hi-C** data. It is a data-driven Hi-C data simulator for simulating and augmenting Hi-C datasets.  FreeHi-C employs a non-parametric strategy for estimating an interaction distribution of genome fragments and simulates Hi-C reads from interacting fragments. Data from FreeHi-C exhibit higher fidelity to the biological Hi-C data. FreeHi-C not only can be used to study and benchmark a wide range of Hi-C analysis methods but also boosts power and enables false discovery rate control for differential interaction detection algorithms through data augmentation. Different from FreeHi-C (v1.0), a spike-in module is added enabling the simulation of true differential chromatin interactions.
 
 FreeHi-C is designed for studies that are prone to simulate Hi-C interactions from the real data and add deviations from the true ones. Therefore, FreeHi-C requires real Hi-C sequencing data (FASTQ format) as input along with user-defined simulation parameters. FreeHi-C will eventually provide the simulated genomics contact counts in a sparse matrix format (BED format) which is compatible with the standard input of downstream Hi-C analysis.
 
-Current version: 1.0.
+Current version: 2.0.
 
 ![FreeHi-C pipeline diagram](/figures/FreeHiC_pipeline.png)
+
+
+## What is NEW?
+
+- [March 20, 2020] [FreeHi-C Spike-in Module](/SpikeInModule) is online. FreeHi-C with a user/data-driven spike-in module allows a comprehensive comparison of differential chromatin interaction detection methods where the ground truth differential chromatin interactions are known. 
+
 
 ## FreeHi-C Usage
 
