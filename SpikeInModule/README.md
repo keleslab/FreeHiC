@@ -1,6 +1,6 @@
 # FreeHi-C Spike-in Simulations for Benchmarking Differential Chromatin Interaction Detection
 
-Ye Zheng, Peigen Zhou, Sündüz Keleş. [FreeHi-C Spike-in Simulations for Benchmarking Differential Chromatin Interaction Detection]() bioRxiv (2020).
+Ye Zheng, Peigen Zhou, Sündüz Keleş. [Zheng Ye, Peigen Zhou, and Sündüz Keleş. "FreeHi-C Spike-in Simulations for Benchmarking Differential Chromatin Interaction Detection." Methods (2020).](https://www.sciencedirect.com/science/article/pii/S1046202320300852?casa_token=_7Dq0UN-474AAAAA:t0seQ_LzQw-OlGpDU3OaX7-uGfIxlHkQ-01W8TU4lPGpq6xFSgHu1VDXrNazhO-Txwm-VNrmLA).
 
 The pipeline is developed in Keles Research Group at University of Wisconsin - Madison. Please contact Ye Zheng (yezheng@stat.wisc.edu) or open an issue in the github repository for any question and suggestion. 
 
