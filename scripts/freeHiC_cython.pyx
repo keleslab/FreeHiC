@@ -213,7 +213,7 @@ cdef void simulation(str fragment, str interaction, int number, str summaryFile,
     with open(interaction, "r") as interFile:
         for line in interFile:
             interInfo = line.split()
-            tmpN = int(interInfo[0])
+            tmpN = int(float(interInfo[0])*10) ## int(float(interInfo[0]))
             freq.append(tmpN)
             contactN = contactN + tmpN
             fragInterIndex = resFragIndex[interInfo[1]]
@@ -223,7 +223,7 @@ cdef void simulation(str fragment, str interaction, int number, str summaryFile,
             interactionN += 1
     ## refresh number
     if number == 0:
-        number = contactN
+        number = int(float(contactN)/10) ## contactN
 
     print("Convert dictionary and list into C structure!")
     ## convert restrction fragment dictionary into C structure
@@ -638,3 +638,4 @@ def main(str fragment, interaction, outdir, fileName, number, mutationP, indelP,
         chimericN = int(chimericP * allMatch /100.0)
     simulation(fragment, interaction, number, summaryFile, allMatch,  revStrandN, chimericN, mutationP, indelP, distance, readLen, outdir, bedtools, fileName, genome)
 
+2

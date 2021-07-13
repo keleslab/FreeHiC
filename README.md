@@ -29,7 +29,7 @@ Current version: 2.0.
 FreeHi-C installation is finished once you successsfully git clone the repository. The default setting of this FreeHi-C pipeline is a demo run utilizing a real but small Hi-C data: [Plasmodium falciparum genome Trophozoite stage](https://noble.gs.washington.edu/proj/plasmo3d). The raw input data will be downloaded automatically. In preparation for such run, you will need to install
 -   BWA: [BWA installation](http://bio-bwa.sourceforge.net/)  (>=0.5.9)
 -   samtools: [samtools installation](http://samtools.sourceforge.net/) (>=1.3)
--   bedtools: [bedtools installation](https://bedtools.readthedocs.io/en/stable/content/installation.html) (>=2.27.0)
+-   bedtools: [bedtools installation](https://bedtools.readthedocs.io/en/stable/content/installation.html) (<=2.25.0, for now please don't use the latest bedtools version)
 -   GNU C++ compiler (>= 4.8.1)
 -   python3 with corresponding modules required: numpy (>= 1.13.1), scipy (>= 0.19.1), pysam (>= 0.12.0), bx-python (>= 0.5.0), Cython (>= 0.27.3). For quick python module installation, python-requirements.txt is provided in this repository. Run
 
@@ -157,7 +157,7 @@ Under the directory of input parameter file:
 
 2. Download or prepare your own Hi-C sequencing data (FASTQ files). Hi-C reads are paired-end reads, therefore there will be two fastq files. The two ends fastq file should have been split with matching read ID name and use the name format, *_1.fastq and *_2.fastq, to indicate the two ends. * indicate the same fastq file prefix name for two ends. Fastq files should already be unzipped. For example, in the demo run, the input fastq files are GSM1215593_trimmedAndFiltered-TROPHOZOITES-XL-AGGG-L2_1.fastq and GSM1215593_trimmedAndFiltered-TROPHOZOITES-XL-AGGG-L2_2.fastq. Therefore, the fastqFile = "GSM1215593_trimmedAndFiltered-TROPHOZOITES-XL-AGGG-L2", namely the * part.
 
-3. Download or prepare the corresponding reference genome (FASTA file) for alignment.
+3. Download or prepare the corresponding reference genome (FASTA file) for alignment. Please convert chrX, Y, M into numerical chromosome number for example, for human, chr23, 24, 25. This can also be done after alignment on the interaction bed file.
 
 4. Download or prepare the restriction enzyme fragment (BED file). HiCPro provides scripts and detailed instruction to generate such files ([http://nservant.github.io/HiC-Pro/UTILS.html#digest-genome-py](http://nservant.github.io/HiC-Pro/UTILS.html#digest-genome-py)). The restriction enzyme fragment file has six columns and provides genomic coordinates for the starting and ending positions of each fragment.
 

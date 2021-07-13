@@ -172,7 +172,7 @@ if __name__ == "__main__":
         chromeDist = {chrome: (i + 1) * resolution * radius * 10 for i, chrome in enumerate(chromeSome)}
         medFile.loc[:, 'chromDist'] = medFile.chrA.replace(chromeDist)
 
-        trueSet = medFile[medFile.log2FC.abs() > 2]
+        trueSet = medFile[medFile.log2FC.abs() > thres]
 
         ## Get the spike-in bin-pairs list
         if number is not None:
@@ -192,8 +192,8 @@ if __name__ == "__main__":
         normFile = rawFile[keyC1]/seqDep * seqDep.max()
 
         ## Filter and get the full true set list
-        medFile = pd.concat([rawFile[keyCoord], normFile[keyC1], normFile[keyC1].median(axis=1).rename("condition1")], axis=1).copy()
-
+        medFile = pd.concat([rawFile[keyCoord], normFile[keyC1]], axis=1).copy() ## medFile = pd.concat([rawFile[keyCoord], normFile[keyC1], normFile[keyC1].median(axis=1).rename("condition1")], axis=1).copy()
+        
         chromeSome = medFile.chrA.unique()
         chromeDist = {chrome: (i + 1) * resolution * radius * 10 for i, chrome in enumerate(chromeSome)}
         medFile.loc[:, 'chromDist'] = medFile.chrA.replace(chromeDist)
@@ -239,7 +239,7 @@ if __name__ == "__main__":
     medFile.loc[spSelect.index, keyC1] = normFile.loc[spSelect.index, keyC1].mul(rate, axis = 0)
 
     ## Convert bin-pairs changes into fragment pairs changes
-    fragPath="/p/keles/yezheng/volumeA/HiC_essentialData/MboI_resfrag_hg19_short.bed"
+    ## fragPath="/p/keles/yezheng/volumeA/HiC_essentialData/MboI_resfrag_hg19_short.bed"
     fragFile = pd.read_csv(fragPath, sep = '\t', header = None, 
                         names = ["chrom", "start", "end", "name", "label", "strand"])
 
